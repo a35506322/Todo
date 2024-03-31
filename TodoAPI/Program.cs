@@ -14,6 +14,10 @@ try
     // add OpenAPI v3 document
     builder.Services.NSwagConfigSetting();
 
+    builder.Services.DIConfigurator();
+
+    builder.Services.AddAuthorization();
+
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.
@@ -25,6 +29,8 @@ try
 
     app.UseHttpsRedirection();
 
+    // 先驗證再授權
+    app.UseAuthentication();
     app.UseAuthorization();
 
     // serve OpenAPI/Swagger documents
