@@ -8,19 +8,23 @@ try
     // Add services to the container.
     builder.Services.AddControllers().AddNewtonsoftJson();
 
-    // serillog 
+    // Serillog 
     builder.Services.AddSerilog();
 
     // add OpenAPI v3 document
     builder.Services.NSwagConfigSetting(env);
 
+    // DI
     builder.Services.DIConfigurator();
 
+    // Atuh
     builder.Services.AddAuthorization();
 
     // AutoMapper
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+    // Error Handler
+    // https://www.milanjovanovic.tech/blog/global-error-handling-in-aspnetcore-8?utm_source=YouTube&utm_medium=social&utm_campaign=25.03.2024#configuring-iexceptionhandler-implementations
     builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
     builder.Services.AddProblemDetails();
 
