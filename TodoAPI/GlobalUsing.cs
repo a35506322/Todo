@@ -28,3 +28,6 @@ global using Todo.API.Infrastructures.Database;
 global using Dapper;
 global using Todo.API.Repositories.Implements;
 global using AutoMapper;
+global using Microsoft.AspNetCore.Diagnostics;
+global using System.Diagnostics;
+global using Todo.API.Infrastructures.ExceptionHandler;

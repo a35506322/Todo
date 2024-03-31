@@ -6,8 +6,7 @@ SerilLogHelper.ConfigureSerilLogger(builder.Configuration);
 try
 {
     // Add services to the container.
-
-    builder.Services.AddControllers();
+    builder.Services.AddControllers().AddNewtonsoftJson();
 
     // serillog 
     builder.Services.AddSerilog();
@@ -22,6 +21,9 @@ try
     // AutoMapper
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+    builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+    builder.Services.AddProblemDetails();
+
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.
@@ -30,6 +32,7 @@ try
     // https://stackoverflow.com/questions/60076922/serilog-logging-web-api-methods-adding-context-properties-inside-middleware
     app.UseMiddleware<RequestResponseLoggingMiddleware>();
     app.UseSerilogRequestLogging(opts => opts.EnrichDiagnosticContext = SerilLogHelper.EnrichFromRequest);
+    app.UseExceptionHandler();
 
     app.UseHttpsRedirection();
 

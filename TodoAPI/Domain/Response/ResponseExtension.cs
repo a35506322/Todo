@@ -19,4 +19,11 @@ public class ResponseExtension
         public static ResultResponse LoginVerificationError() => new ResultResponse(ReturnCode: Enum.ReturnCodeEnum.UnAuth, ReturnMessage: "登入失敗");
 
     }
+
+    public static class Exception
+    {
+        public static ResultResponse GlobalException(ProblemDetails problemDetails) => new ResultResponse(ReturnCode: Enum.ReturnCodeEnum.ServerError, Data: problemDetails);
+        public static ResultResponse BadRequest(ProblemDetails problemDetails) => new ResultResponse(ReturnCode: Enum.ReturnCodeEnum.VaildDataError, Data: problemDetails);
+
+    }
 }
