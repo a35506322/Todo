@@ -1,29 +1,49 @@
-
-
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+SerilLogHelper.ConfigureSerilLogger(builder.Configuration);
 
-builder.Services.AddControllers();
+try
+{
+    // Add services to the container.
 
-// add OpenAPI v3 document
-builder.Services.NSwagConfigSetting();
+    builder.Services.AddControllers();
 
-var app = builder.Build();
+    // serillog 
+    builder.Services.AddSerilog();
 
-// Configure the HTTP request pipeline.
+    // add OpenAPI v3 document
+    builder.Services.NSwagConfigSetting();
 
-app.UseHttpsRedirection();
+    var app = builder.Build();
 
-app.UseAuthorization();
+    // Configure the HTTP request pipeline.
 
-// serve OpenAPI/Swagger documents
-app.UseOpenApi();
-// serve Swagger UI
-app.UseSwaggerUi();
-// serve ReDoc UI
-app.UseReDoc();
+    // Logging
+    // https://stackoverflow.com/questions/60076922/serilog-logging-web-api-methods-adding-context-properties-inside-middleware
+    app.UseMiddleware<RequestResponseLoggingMiddleware>();
+    app.UseSerilogRequestLogging(opts => opts.EnrichDiagnosticContext = SerilLogHelper.EnrichFromRequest);
 
-app.MapControllers();
+    app.UseHttpsRedirection();
 
-app.Run();
+    app.UseAuthorization();
+
+    // serve OpenAPI/Swagger documents
+    app.UseOpenApi();
+    // serve Swagger UI
+    app.UseSwaggerUi();
+    // serve ReDoc UI
+    app.UseReDoc();
+
+    app.MapControllers();
+
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Application terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
+

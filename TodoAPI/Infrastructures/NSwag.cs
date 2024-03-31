@@ -1,4 +1,4 @@
-﻿namespace TodoAPI.Infrastructures;
+﻿namespace Todo.API.Infrastructures;
 
 public static class NSwag
 {
