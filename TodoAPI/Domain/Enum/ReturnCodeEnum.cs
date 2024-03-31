@@ -4,4 +4,5 @@ public enum ReturnCodeEnum
 {
     Success = 2000,
     UnAuth = 4001,
+    DBCommandFail = 5001,
 }

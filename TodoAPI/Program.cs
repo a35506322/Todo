@@ -1,5 +1,6 @@
 var builder = WebApplication.CreateBuilder(args);
 
+var env = builder.Environment;
 SerilLogHelper.ConfigureSerilLogger(builder.Configuration);
 
 try
@@ -12,11 +13,14 @@ try
     builder.Services.AddSerilog();
 
     // add OpenAPI v3 document
-    builder.Services.NSwagConfigSetting();
+    builder.Services.NSwagConfigSetting(env);
 
     builder.Services.DIConfigurator();
 
     builder.Services.AddAuthorization();
+
+    // AutoMapper
+    builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
     var app = builder.Build();
 

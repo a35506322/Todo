@@ -10,5 +10,13 @@ public class ResponseExtension
     public static class Post
     {
         public static ResultResponse SiginSuccess(string token) => new ResultResponse(ReturnMessage: "登入成功", Data: token);
+        public static ResultResponse InsertSuccess() => new ResultResponse(ReturnMessage: "新增成功");
+        public static ResultResponse InsertFail() => new ResultResponse(ReturnCode: Enum.ReturnCodeEnum.DBCommandFail, ReturnMessage: "新增失敗");
+    }
+
+    public static class Verify
+    {
+        public static ResultResponse LoginVerificationError() => new ResultResponse(ReturnCode: Enum.ReturnCodeEnum.UnAuth, ReturnMessage: "登入失敗");
+
     }
 }
