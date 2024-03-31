@@ -4,7 +4,7 @@ namespace Todo.API.Infrastructures;
 
 public static class NSwag
 {
-    public static void NSwagConfigSetting(this IServiceCollection services, IWebHostEnvironment env)
+    public static void NSwagConfigSetting(this IServiceCollection services, IHostEnvironment env)
     {
         services.AddOpenApiDocument(
         (settings, provider) =>
