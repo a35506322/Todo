@@ -52,7 +52,7 @@ try
     // serve Swagger UI
     app.UseSwaggerUi();
     // serve ReDoc UI
-    app.UseReDoc();
+    app.UseReDoc((config)=> config.Path="/redoc");
 
     app.MapControllers();
 
