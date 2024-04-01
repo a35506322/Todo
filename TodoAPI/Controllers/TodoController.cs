@@ -11,18 +11,19 @@ public class TodoController : ControllerBase
         this._todoService = todoService;
     }
 
-    // GET: api/<TodoController>
     [HttpGet]
-    public IEnumerable<string> Get()
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultResponse))]
+    public async Task<IResult> Get([FromQuery] QueryTodoRequest request)
     {
-        return new string[] { "value1", "value2" };
+        var result = await this._todoService.GetTodos(request);
+        return Results.Ok(result);
     }
 
-    // GET api/<TodoController>/5
-    [HttpGet("{id}")]
-    public string Get(int id)
+    [HttpGet("{todoId}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultResponse))]
+    public async Task<IResult> GetById([FromRoute] QueryTodoRequest request)
     {
-        return "value";
+        return Results.Ok();
     }
 
     [HttpPost]
@@ -33,7 +34,6 @@ public class TodoController : ControllerBase
         return Results.Ok(result);
     }
 
-    // PUT api/<TodoController>/5
     [HttpPut("{id}")]
     public void Put(int id, [FromBody] string value)
     {

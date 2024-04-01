@@ -8,5 +8,7 @@ public class TodoProfile : Profile
             .AfterMap((src, dest) => dest.IsComplete = "N")
             .AfterMap((src, dest) => dest.AddTime = DateTime.Now);
 
+        CreateMap<QueryTodoRequest, TodoEntity>();
+
     }
 }

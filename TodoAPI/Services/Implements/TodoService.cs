@@ -1,4 +1,5 @@
-﻿namespace Todo.API.Services.Implements;
+﻿
+namespace Todo.API.Services.Implements;
 
 public class TodoService : ITodoService
 {
@@ -8,6 +9,13 @@ public class TodoService : ITodoService
     {
         _todoRepository = todoRepository;
         _mapper = mapper;
+    }
+
+    public async Task<ResultResponse> GetTodos(QueryTodoRequest request)
+    {
+        var entity = this._mapper.Map<TodoEntity>(request);
+        var result = await this._todoRepository.GetAsyc(entity);
+        return ResponseExtension.Query.QuerySuccess(result);
     }
 
     public async Task<ResultResponse> InsertTodo(PostTodoRequest request)
