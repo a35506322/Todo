@@ -28,6 +28,9 @@ try
     builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
     builder.Services.AddProblemDetails();
 
+    // JWT
+    builder.Services.JWTConfigurator(builder.Configuration);
+
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.
