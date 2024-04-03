@@ -36,3 +36,4 @@ global using Microsoft.Extensions.Diagnostics.HealthChecks;
 global using System.Text.Json;
 global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 global using Todo.API.Infrastructures.HealthCheck;
+global using NSwag.Generation.Processors.Security;

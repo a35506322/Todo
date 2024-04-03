@@ -1,3 +1,5 @@
+using Todo.API.Infrastructures.NSwag;
+
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
