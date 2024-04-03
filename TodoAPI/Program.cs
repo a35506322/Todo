@@ -1,3 +1,4 @@
+using NSwag.Examples;
 using Todo.API.Infrastructures.NSwag;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,7 @@ try
     builder.Services.AddSerilog();
 
     // add OpenAPI v3 document
+    builder.Services.AddExampleProviders(AppDomain.CurrentDomain.GetAssemblies());
     builder.Services.NSwagConfigSetting(env);
 
     // DI

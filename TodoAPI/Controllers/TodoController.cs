@@ -13,6 +13,8 @@ public class TodoController : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultResponse))]
+    [EndpointSpecificExample(typeof(TodoGetRequestExample), ExampleType = ExampleType.Request)]
+    [EndpointSpecificExample(typeof(TodoGetResponseExample), ExampleType = ExampleType.Response, ResponseStatusCode = StatusCodes.Status200OK)]
     public async Task<IResult> Get([FromQuery] QueryTodoRequest request)
     {
         var result = await this._todoService.GetTodos(request);
@@ -21,6 +23,8 @@ public class TodoController : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultResponse))]
+    [EndpointSpecificExample(typeof(PostTodoRequestExample), ExampleType = ExampleType.Request)]
+    [EndpointSpecificExample(typeof(InsertSuccessResponseExample), typeof(InsertFailResponseExample), ExampleType = ExampleType.Response, ResponseStatusCode = StatusCodes.Status200OK)]
     public async Task<IResult> InsertTodo([FromBody] PostTodoRequest request)
     {
         var result = await this._todoService.InsertTodo(request);

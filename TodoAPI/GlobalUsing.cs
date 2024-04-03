@@ -37,3 +37,7 @@ global using System.Text.Json;
 global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 global using Todo.API.Infrastructures.HealthCheck;
 global using NSwag.Generation.Processors.Security;
+global using NSwag.Examples;
+global using Todo.API.Domain.SwaggerExample.Todo;
+global using Todo.API.Domain.Enum;
+global using Todo.API.Domain.SwaggerExample.Common;

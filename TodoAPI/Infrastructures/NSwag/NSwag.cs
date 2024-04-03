@@ -22,9 +22,10 @@ public static class NSwag
 
             // 這裡會同時註冊 SecurityDefinition (.components.securitySchemes) 與 SecurityRequirement (.security)
             settings.AddSecurity("Bearer", Enumerable.Empty<string>(), apiScheme);
-
             // 這段是為了將 "Bearer" 加入到 OpenAPI Spec 裡 Operator 的 security (Security requirements) 中
             settings.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor());
+
+            settings.AddExamples(provider);
         });
 
 

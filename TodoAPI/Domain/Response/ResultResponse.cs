@@ -1,5 +1,3 @@
-﻿using Todo.API.Domain.Enum;
+﻿namespace Todo.API.Domain.Response;
 
-namespace Todo.API.Domain.Response;
-
-public record ResultResponse(ReturnCodeEnum ReturnCode = ReturnCodeEnum.Success, string ReturnMessage = "", Object Data = null);
+public record ResultResponse(ReturnCodeEnum ReturnCode = ReturnCodeEnum.Success, string ReturnMessage = "", object Data = null);
