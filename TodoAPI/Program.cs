@@ -1,7 +1,8 @@
 var builder = WebApplication.CreateBuilder(args);
+var config = builder.Configuration;
 
 var env = builder.Environment;
-SerilLogHelper.ConfigureSerilLogger(builder.Configuration);
+SerilLogHelper.ConfigureSerilLogger(config);
 
 try
 {
@@ -29,11 +30,17 @@ try
     builder.Services.AddProblemDetails();
 
     // JWT
-    builder.Services.JWTConfigurator(builder.Configuration);
+    builder.Services.JWTConfigurator(config);
+
+    builder.Services.HealthCheckConfig(config); 
 
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.
+    app.MapHealthChecks("/healthz", new HealthCheckOptions
+    {
+        ResponseWriter = UIResponseWriter.WriteResponse
+    });
 
     // Logging
     // https://stackoverflow.com/questions/60076922/serilog-logging-web-api-methods-adding-context-properties-inside-middleware
