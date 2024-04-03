@@ -32,3 +32,4 @@ global using Microsoft.AspNetCore.Diagnostics;
 global using System.Diagnostics;
 global using Todo.API.Infrastructures.ExceptionHandler;
 global using Todo.API.Domain.Request.Get;
+global using Todo.API.Domain.Request.Put;

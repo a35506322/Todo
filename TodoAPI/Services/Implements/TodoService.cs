@@ -1,5 +1,4 @@
-﻿
-namespace Todo.API.Services.Implements;
+﻿namespace Todo.API.Services.Implements;
 
 public class TodoService : ITodoService
 {
@@ -11,20 +10,55 @@ public class TodoService : ITodoService
         _mapper = mapper;
     }
 
+    public async Task<ResultResponse> DeleteTodo(Guid todoId)
+    {
+        var todo = await this._todoRepository.GetByTodoIdAsync(todoId);
+        if (todo is null) return ResponseExtension.Command.QueryNotFound(todoId.ToString());
+
+        var result = await this._todoRepository.DeleteByTodoIdAsync(todoId);
+        if (!result) return ResponseExtension.Command.UpdateFail();
+
+        return ResponseExtension.Command.DeleteSuccess();
+    }
+
     public async Task<ResultResponse> GetTodos(QueryTodoRequest request)
     {
         var entity = this._mapper.Map<TodoEntity>(request);
-        var result = await this._todoRepository.GetAsyc(entity);
+        var result = await this._todoRepository.GetAsync(entity);
         return ResponseExtension.Query.QuerySuccess(result);
     }
 
     public async Task<ResultResponse> InsertTodo(PostTodoRequest request)
     {
         var entity = this._mapper.Map<TodoEntity>(request);
-        var result = await this._todoRepository.InsertAsyc(entity);
+        var result = await this._todoRepository.InsertAsync(entity);
 
-        if (!result) return ResponseExtension.Post.InsertFail();
+        if (!result) return ResponseExtension.Command.InsertFail();
 
-        return ResponseExtension.Post.InsertSuccess();
+        return ResponseExtension.Command.InsertSuccess();
+    }
+
+    public async Task<ResultResponse> UpdateTodo(PutUpdateTodoContentRequest request)
+    {
+        var todo = await this._todoRepository.GetByTodoIdAsync(request.TodoId);
+        if (todo is null) return ResponseExtension.Command.QueryNotFound(request.TodoId.ToString());
+
+        var entity = this._mapper.Map<TodoEntity>(request);
+        var result = await this._todoRepository.UpdateTodoByTodoIdAsync(entity);
+        if (!result) return ResponseExtension.Command.UpdateFail();
+
+        return ResponseExtension.Command.UpdateSuccess();
+    }
+
+    public async Task<ResultResponse> UpdateTodoStatus(PutUpdateTodoStatusRequest request)
+    {
+        var todo = await this._todoRepository.GetByTodoIdAsync(request.TodoId);
+        if (todo is null) return ResponseExtension.Command.QueryNotFound(request.TodoId.ToString());
+
+        var entity = this._mapper.Map<TodoEntity>(request);
+        var result = await this._todoRepository.UpdateTodoStatusByTodoIdAsync(entity);
+        if (!result) return ResponseExtension.Command.UpdateFail();
+
+        return ResponseExtension.Command.UpdateSuccess();
     }
 }

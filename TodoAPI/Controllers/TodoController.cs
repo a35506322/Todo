@@ -19,13 +19,6 @@ public class TodoController : ControllerBase
         return Results.Ok(result);
     }
 
-    [HttpGet("{todoId}")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultResponse))]
-    public async Task<IResult> GetById([FromRoute] QueryTodoRequest request)
-    {
-        return Results.Ok();
-    }
-
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultResponse))]
     public async Task<IResult> InsertTodo([FromBody] PostTodoRequest request)
@@ -34,14 +27,29 @@ public class TodoController : ControllerBase
         return Results.Ok(result);
     }
 
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
+    [HttpPut("~/api/[controller]/UpdateTodoStatus/{todoId}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultResponse))]
+    public async Task<IResult> UpdateTodoStatus([FromBody] PutUpdateTodoStatusRequest request, [FromRoute] Guid todoId)
     {
+        if(todoId != request.TodoId) return Results.Ok(ResponseExtension.Command.VaildDataError());
+        var result = await this._todoService.UpdateTodoStatus(request); 
+        return Results.Ok(result);
     }
 
-    // DELETE api/<TodoController>/5
-    [HttpDelete("{id}")]
-    public void Delete(int id)
+    [HttpDelete("{todoId}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultResponse))]
+    public async Task<IResult> Delete([FromRoute] Guid todoId)
     {
+        var result = await this._todoService.DeleteTodo(todoId);
+        return Results.Ok(result);
+    }
+
+    [HttpPut("~/api/[controller]/UpdateTodoContent/{todoId}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultResponse))]
+    public async Task<IResult> UpdateTodoContent([FromBody] PutUpdateTodoContentRequest request, [FromRoute] Guid todoId)
+    {
+        if (todoId != request.TodoId) return Results.Ok(ResponseExtension.Command.VaildDataError());
+        var result = await this._todoService.UpdateTodo(request);
+        return Results.Ok(result);
     }
 }

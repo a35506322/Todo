@@ -16,6 +16,6 @@ public class SigninController : ControllerBase
     public async Task<IResult> SignIn([FromBody] PostSignInRequest request)
     {
         if (request is not { Account: "Admin", Password: "=-09poiu" }) return Results.Ok(ResponseExtension.Verify.LoginVerificationError());
-        return Results.Ok(ResponseExtension.Post.SiginSuccess(this._jWTHelper.GenerateToken()));
+        return Results.Ok(ResponseExtension.Command.SiginSuccess(this._jWTHelper.GenerateToken()));
     }
 }
