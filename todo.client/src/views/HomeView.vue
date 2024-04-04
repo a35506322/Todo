@@ -5,5 +5,7 @@ const msg = ref('hello world');
 </script>
 
 <template>
-  {{ msg }}
+  <h1 className="text-3xl font-bold underline">
+    {{ msg }}
+  </h1>
 </template>
