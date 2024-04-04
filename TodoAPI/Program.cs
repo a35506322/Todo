@@ -13,6 +13,7 @@ try
     builder.Services.AddSerilog();
 
     // add OpenAPI v3 document
+    // https://github.com/vaclavnovotny/NSwag.Examples
     builder.Services.AddExampleProviders(AppDomain.CurrentDomain.GetAssemblies());
     builder.Services.NSwagConfigSetting(env);
 
@@ -43,6 +44,13 @@ try
         ResponseWriter = UIResponseWriter.WriteResponse
     });
 
+    // serve OpenAPI/Swagger documents
+    app.UseOpenApi();
+    // serve Swagger UI
+    app.UseSwaggerUi();
+    // serve ReDoc UI
+    app.UseReDoc((config) => config.Path = "/redoc");
+
     // Logging
     // https://stackoverflow.com/questions/60076922/serilog-logging-web-api-methods-adding-context-properties-inside-middleware
     app.UseMiddleware<RequestResponseLoggingMiddleware>();
@@ -54,13 +62,6 @@ try
     // 先驗證再授權
     app.UseAuthentication();
     app.UseAuthorization();
-
-    // serve OpenAPI/Swagger documents
-    app.UseOpenApi();
-    // serve Swagger UI
-    app.UseSwaggerUi();
-    // serve ReDoc UI
-    app.UseReDoc((config) => config.Path = "/redoc");
 
     app.MapControllers();
 
