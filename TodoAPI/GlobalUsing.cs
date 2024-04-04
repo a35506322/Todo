@@ -1,5 +1,4 @@
 ﻿global using NSwag;
-global using Todo.API.Infrastructures;
 global using Serilog;
 global using Todo.API.Infrastructures.Logging;
 global using System.Text;
@@ -22,7 +21,6 @@ global using Todo.API.Services.Implements;
 global using Todo.API.Domain.Entity;
 global using Todo.API.Repositories.Interfaces;
 global using Microsoft.Data.SqlClient;
-global using System.Data;
 global using Todo.API.Infrastructures.Database;
 global using Dapper;
 global using Todo.API.Repositories.Implements;
@@ -41,3 +39,4 @@ global using NSwag.Examples;
 global using Todo.API.Domain.SwaggerExample.Todo;
 global using Todo.API.Domain.Enum;
 global using Todo.API.Domain.SwaggerExample.Common;
+global using Todo.API.Infrastructures.NSwag;

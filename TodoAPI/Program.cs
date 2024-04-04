@@ -1,6 +1,3 @@
-using NSwag.Examples;
-using Todo.API.Infrastructures.NSwag;
-
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
@@ -36,7 +33,7 @@ try
     // JWT
     builder.Services.JWTConfigurator(config);
 
-    builder.Services.HealthCheckConfig(config); 
+    builder.Services.HealthCheckConfig(config);
 
     var app = builder.Build();
 
@@ -63,7 +60,7 @@ try
     // serve Swagger UI
     app.UseSwaggerUi();
     // serve ReDoc UI
-    app.UseReDoc((config)=> config.Path="/redoc");
+    app.UseReDoc((config) => config.Path = "/redoc");
 
     app.MapControllers();
 

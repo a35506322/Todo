@@ -16,9 +16,9 @@ public class TodoService : ITodoService
         if (todo is null) return ResponseExtension.Command.QueryNotFound(todoId.ToString());
 
         var result = await this._todoRepository.DeleteByTodoIdAsync(todoId);
-        if (!result) return ResponseExtension.Command.UpdateFail();
+        if (!result) return ResponseExtension.Command.DeleteFail();
 
-        return ResponseExtension.Command.DeleteSuccess();
+        return ResponseExtension.Command.DeleteFail();
     }
 
     public async Task<ResultResponse> GetTodos(QueryTodoRequest request)

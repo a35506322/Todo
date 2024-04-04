@@ -1,4 +1,6 @@
-﻿namespace Todo.API.Controllers;
+﻿using Todo.API.Domain.SwaggerExample.SignIn;
+
+namespace Todo.API.Controllers;
 
 [Route("/api/[controller]/[action]")]
 [ApiController]
@@ -12,7 +14,19 @@ public class SigninController : ControllerBase
     }
 
 
+    /// <summary>
+    /// 登入
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultResponse))]
+    [EndpointSpecificExample(typeof(PostSignInRequestExample), ExampleType = ExampleType.Request)]
+    [EndpointSpecificExample(typeof(SiginSuccessResponseExample),
+        typeof(LoginVerificationErrorResponseExample),
+        ExampleType = ExampleType.Response,
+        ResponseStatusCode = StatusCodes.Status200OK)]
+
     public async Task<IResult> SignIn([FromBody] PostSignInRequest request)
     {
         if (request is not { Account: "Admin", Password: "=-09poiu" }) return Results.Ok(ResponseExtension.Verify.LoginVerificationError());
