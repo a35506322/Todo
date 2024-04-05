@@ -40,3 +40,4 @@ global using Todo.API.Domain.SwaggerExample.Todo;
 global using Todo.API.Domain.Enum;
 global using Todo.API.Domain.SwaggerExample.Common;
 global using Todo.API.Infrastructures.NSwag;
+global using Todo.API.Infrastructures.Cors;

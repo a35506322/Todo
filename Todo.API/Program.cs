@@ -36,13 +36,9 @@ try
 
     builder.Services.HealthCheckConfig(config);
 
-    var app = builder.Build();
+    builder.Services.CorsSetting(env);
 
-    // Configure the HTTP request pipeline.
-    app.MapHealthChecks("/healthz", new HealthCheckOptions
-    {
-        ResponseWriter = UIResponseWriter.WriteResponse
-    });
+    var app = builder.Build();
 
     // serve OpenAPI/Swagger documents
     app.UseOpenApi();
@@ -59,9 +55,17 @@ try
 
     app.UseHttpsRedirection();
 
+    app.UseCors();
+
     // 先驗證再授權
     app.UseAuthentication();
     app.UseAuthorization();
+
+    // Configure the HTTP request pipeline.
+    app.MapHealthChecks("/healthz", new HealthCheckOptions
+    {
+        ResponseWriter = UIResponseWriter.WriteResponse
+    });
 
     app.MapControllers();
 
