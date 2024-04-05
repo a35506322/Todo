@@ -17,7 +17,7 @@ public static class SerilLogHelper
             evt => evt.Level,
             (level, wt) => wt.File(
                 new CompactJsonFormatter(),
-                path: @$"../TodoLogs/API/{level}/log-{level}-.txt",
+                path: String.Format(configuration.GetValue<string>("Path:SerilLogSavePath"), level),
                 restrictedToMinimumLevel: LogEventLevel.Information,
                 rollOnFileSizeLimit: true,
                 rollingInterval: RollingInterval.Day))
