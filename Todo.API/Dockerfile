@@ -21,5 +21,6 @@ RUN dotnet publish "./Todo.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /
 
 FROM base AS final
 WORKDIR /app
+ENV TZ="Asia/Taipei"
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Todo.API.dll"]
