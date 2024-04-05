@@ -28,7 +28,7 @@ onMounted(() => {
                 <label for="title" class="block mb-2 text-sm font-medium text-gray-900"
                   >代辦標題</label
                 >
-                <input type="text" name="name" id="name" class="input-success" required />
+                <input type="text" name="title" id="title" class="input-success" required />
               </div>
               <div>
                 <label for="title-content" class="block mb-2 text-sm font-medium text-gray-900"
