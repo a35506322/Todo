@@ -1,9 +1,15 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { initFlowbite } from 'flowbite';
+import { getTodo } from '@/services/todoServices';
 
 const msg = ref('hello world');
 
+const getTodoService = async () => {
+  const result = await getTodo();
+  console.log(result);
+};
+getTodoService();
 // initialize components based on data attribute selectors
 onMounted(() => {
   initFlowbite();
@@ -50,7 +56,7 @@ onMounted(() => {
           <div id="alert-additional-content-3" class="alert-success" role="alert">
             <div class="flex items-center">
               <svg
-                class="w-[16px] h-[16px] me-2"
+                class="w-[24px] h-[24px] me-2"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -84,7 +90,7 @@ onMounted(() => {
           <div id="alert-additional-content-5" class="alert-second" role="alert">
             <div class="flex items-center">
               <svg
-                class="w-[16px] h-[16px] text-gray-800 dark:text-white me-2"
+                class="w-[24px] h-[24px] text-gray-800 dark:text-white me-2"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
