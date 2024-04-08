@@ -1,0 +1,681 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Todo 程式說明</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="a52e4f13-009a-4e34-8751-e0bd09a6102d" class="page sans"><header><h1 class="page-title">Todo 程式說明</h1><p class="page-description"></p></header><div class="page-body"><h1 id="0f7a5b97-51b1-4e43-a95b-ea14a7e54d4d" class="">API</h1><h2 id="13017eb4-d172-4812-b5f2-ca7adc887957" class="">N層次 設計架構</h2><figure id="9ea39fe1-64b3-46dd-8990-d3805f2996da" class="image"><a href="Todo%20%E7%A8%8B%E5%BC%8F%E8%AA%AA%E6%98%8E%20a52e4f13009a4e348751e0bd09a6102d/Untitled.png"><img style="width:1027px" src="Todo%20%E7%A8%8B%E5%BC%8F%E8%AA%AA%E6%98%8E%20a52e4f13009a4e348751e0bd09a6102d/Untitled.png"/></a></figure><figure id="f9214fa5-6081-486a-ab8d-6c93b4ae38ed" class="image"><a href="https://www.notion.so./Docs/Readme/API%20Architecture%20Sequence%20Diagram.png"><img src="https://www.notion.so./Docs/Readme/API%20Architecture%20Sequence%20Diagram.png"/></a></figure><h2 id="7b2edfe0-2153-4da3-9442-41c702fe2549" class="">資料夾架構</h2><table id="167f02fc-b7f3-4ca0-acd3-1e2393d62c99" class="simple-table"><tbody><tr id="02d39744-72e5-4e28-bbea-0aed0571d007"><td id="iLjk" class="">資料夾名稱</td><td id="WMMC" class="">分層</td><td id="SXFY" class="">說明</td></tr><tr id="f7398230-60d9-46ea-9cc2-a128f7d24358"><td id="iLjk" class="">Domain</td><td id="WMMC" class="">領域</td><td id="SXFY" class="">可放置傳輸物件、狀態等物件</td></tr><tr id="fd238acb-fa53-42e7-9698-864b7dd0dfd1"><td id="iLjk" class="">Infrastructure</td><td id="WMMC" class="">基礎建設</td><td id="SXFY" class="">例如 Log 設定、JWT 設定</td></tr><tr id="dcc32a62-e74d-48a3-a029-1ed017e68b1a"><td id="iLjk" class="">Controllers</td><td id="WMMC" class="">控制層</td><td id="SXFY" class="">端點</td></tr><tr id="c0a14b87-3ed8-4a20-8aa0-1fe62ed8798b"><td id="iLjk" class="">Services</td><td id="WMMC" class="">商業邏輯層</td><td id="SXFY" class="">內有實作以及介面</td></tr><tr id="bf0ddb67-4a31-4bbe-a71b-e247e82cd9ba"><td id="iLjk" class="">Repositories</td><td id="WMMC" class="">資料存取層</td><td id="SXFY" class="">與資料庫溝通，內有實作以及介面</td></tr></tbody></table><p id="52346754-845f-4d74-871a-ca8c3efbae6e" class="">
+</p><p id="ac67cf98-42ea-4ffe-90b1-2a9ca2f60bb4" class="">Domain</p><table id="7972d3f0-d988-4fbe-9769-8180f2f52721" class="simple-table"><tbody><tr id="d8ce73f2-08ce-488f-a780-1efa48589a6a"><td id="DtPG" class="">資料夾名稱</td><td id="D^o&gt;" class="">說明</td></tr><tr id="a171c798-c794-4c53-aa9e-4d61c10160ec"><td id="DtPG" class="">AutoMapperProfile</td><td id="D^o&gt;" class="">AutoMapper 註冊</td></tr><tr id="594fa705-a48e-4f32-aca3-05fb418954ac"><td id="DtPG" class="">Request</td><td id="D^o&gt;" class="">接收Client 物件</td></tr><tr id="85b5452a-9757-4916-bab0-d9270a49b87c"><td id="DtPG" class="">Response</td><td id="D^o&gt;" class="">回傳Client 物件</td></tr><tr id="62d87bfa-eb52-4e4e-8c37-62b2047ffbf0"><td id="DtPG" class="">Entity</td><td id="D^o&gt;" class="">資料存取層物件(與資料庫屬性一致)</td></tr><tr id="9d72bf83-23b0-4052-a7b3-0e68a000e2b6"><td id="DtPG" class="">Enum</td><td id="D^o&gt;" class="">可放置魔術數字</td></tr><tr id="be2884a0-9bba-46b7-91e6-d381d3270c56"><td id="DtPG" class="">Static</td><td id="D^o&gt;" class="">靜態物件</td></tr><tr id="55b2b3a8-80f4-4770-acb5-944d5a38cb3b"><td id="DtPG" class="">SwaggerExamples</td><td id="D^o&gt;" class="">用於 Swagger 文件顯示 Request、Response 使用</td></tr></tbody></table><h2 id="1eb06763-ab88-4b72-83de-502754b25ecd" class="">套件說明</h2><table id="b3f21420-825b-450f-aaf7-27e2ab13e2f0" class="simple-table"><tbody><tr id="c2ec3913-5754-4bba-a34c-16bf6ab7cb7c"><td id="yEB~" class="">套件</td><td id="epvm" class="" style="width:485.671875px">網址</td></tr><tr id="f1356a40-e8b9-47f1-87b8-1869a6d42897"><td id="yEB~" class="">NSwag</td><td id="epvm" class="" style="width:485.671875px"><a href="https://github.com/vaclavnovotny/NSwag.Examples">https://github.com/vaclavnovotny/NSwag.Examples</a></td></tr><tr id="449f7017-634e-41b2-ab56-a033f66ddf79"><td id="yEB~" class="">AutoMapper</td><td id="epvm" class="" style="width:485.671875px"><a href="https://igouist.github.io/post/2020/07/automapper/">https://igouist.github.io/post/2020/07/automapper/</a></td></tr><tr id="9bbfe88a-d7bd-474d-8778-8a2d3a108260"><td id="yEB~" class="">Dapper</td><td id="epvm" class="" style="width:485.671875px"><a href="https://blog.poychang.net/note-dapper/">https://blog.poychang.net/note-dapper/</a></td></tr><tr id="4fd34c51-bc45-4a59-88cb-a2d4da40fb4b"><td id="yEB~" class="">SerilLog</td><td id="epvm" class="" style="width:485.671875px"><a href="https://blog.miniasp.com/post/2021/11/29/How-to-use-Serilog-with-NET-6">https://blog.miniasp.com/post/2021/11/29/How-to-use-Serilog-with-NET-6</a></td></tr><tr id="5026f13f-faa2-4cc1-8ff1-5df80992a4f7"><td id="yEB~" class="">HealthChecks</td><td id="epvm" class="" style="width:485.671875px"><a href="https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks">Xabaril/AspNetCore.Diagnostics.HealthChecks: Enterprise HealthChecks for ASP.NET Core Diagnostics Package (github.com)</a></td></tr><tr id="23c6f61b-a316-4bb9-b9ee-d1ca1c3d0fcf"><td id="yEB~" class="">JwtBearer</td><td id="epvm" class="" style="width:485.671875px"><a href="https://blog.miniasp.com/post/2022/02/13/How-to-use-JWT-token-based-auth-in-aspnet-core-60">如何在 ASP.NET Core 6 使用 Token-based 身份認證與授權 (JWT) | The Will Will Web (miniasp.com)</a></td></tr></tbody></table><figure id="eb419fc2-cff1-482a-9719-36708f939b9e" class="image"><a href="https://www.notion.so./Docs/Readme/ExampleAnnotation.png"><img src="https://www.notion.so./Docs/Readme/ExampleAnnotation.png"/></a></figure><h1 id="a5e4dc39-ac93-4f0a-88d3-93932929c89b" class="">CLIENT</h1><h2 id="e58ae04c-a346-45f6-86f0-a3657b030a95" class="">開發流程</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2d012b58-1530-409b-80bc-721aacb08cd7" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">1.  npm install (第一次)
+2.  npm run dev</code></pre><p id="257f4622-bb23-406a-a45a-8e4e524bd9de" class="">
+</p><h2 id="b9bde9de-163a-4503-9609-784eb884eb31" class="">資料夾結構</h2><table id="4eb92f79-7db4-402d-9b05-0fdef21e5bd8" class="simple-table"><tbody><tr id="7af82464-6a5f-4ac8-b0ba-4d6dd8325d92"><td id="UeBK" class="">資料夾名稱</td><td id="Tiip" class="">說明</td></tr><tr id="2882d105-e638-4edc-b636-b5acdd31848e"><td id="UeBK" class="">assets</td><td id="Tiip" class="">放置靜態資源，例如image、json、css</td></tr><tr id="d7d6aa53-ad71-4c94-b00e-80ad778aa6ba"><td id="UeBK" class="">components</td><td id="Tiip" class="">components</td></tr><tr id="8bab0a0c-40de-4353-8bba-379313b399b0"><td id="UeBK" class="">layout</td><td id="Tiip" class="">sakivue layout</td></tr><tr id="3225a210-60a1-4d53-9747-42886c156745"><td id="UeBK" class="">router</td><td id="Tiip" class="">vue router</td></tr><tr id="49f97717-a810-42aa-9d56-4e22665577c3"><td id="UeBK" class="">services</td><td id="Tiip" class="">呼叫API</td></tr><tr id="b1a6af34-5cf4-4ea3-b1d9-ec3209b88cd3"><td id="UeBK" class="">stores</td><td id="Tiip" class="">pinia store</td></tr><tr id="dbfb5f52-2268-4e86-9111-51efa57c5e3b"><td id="UeBK" class="">utils</td><td id="Tiip" class="">通用方法</td></tr><tr id="19894eaf-9f43-4f51-9836-1c27bb457da4"><td id="UeBK" class="">views</td><td id="Tiip" class="">views，請按模組建置子資料夾</td></tr></tbody></table><h2 id="94d6cba7-06f0-46d6-a245-6c4b73f9e7da" class="">套件</h2><table id="cd9991bb-b47a-45be-a270-92096f1e43eb" class="simple-table"><tbody><tr id="ea54ebca-1763-49cb-9972-5692571d1bfe"><td id="PY\E" class="">套件</td><td id="YMgI" class="">用途</td><td id="jh_@" class="">網址</td></tr><tr id="e387f42a-22ef-49ff-b1bc-e106a5c8856d"><td id="PY\E" class="">Pinia</td><td id="YMgI" class="">狀態管理</td><td id="jh_@" class=""><a href="https://pinia.vuejs.org/zh/">https://pinia.vuejs.org/zh/</a></td></tr><tr id="9298149a-d60f-4dc7-ac9c-ec6e933d5696"><td id="PY\E" class="">axios</td><td id="YMgI" class="">後端間接</td><td id="jh_@" class=""><a href="https://github.com/axios/axios">https://github.com/axios/axios</a></td></tr><tr id="84845a9f-7675-401d-853e-b53bf8230d0d"><td id="PY\E" class="">vueuse</td><td id="YMgI" class="">Vue 函示庫</td><td id="jh_@" class=""><a href="https://vueuse.org/">https://vueuse.org/</a></td></tr><tr id="5b69dafa-fffa-4023-9233-157169afbb98"><td id="PY\E" class="">vue-router</td><td id="YMgI" class="">Vue Router</td><td id="jh_@" class=""><a href="https://router.vuejs.org/zh/">https://router.vuejs.org/zh/</a></td></tr><tr id="a8e08589-d442-4318-bbef-1599807de3c7"><td id="PY\E" class="">vue</td><td id="YMgI" class="">Vue</td><td id="jh_@" class=""><a href="https://cn.vuejs.org/">https://cn.vuejs.org/</a></td></tr><tr id="29fba20d-91a9-4206-8430-4384cdbb94c3"><td id="PY\E" class="">vite</td><td id="YMgI" class="">前端打包工具</td><td id="jh_@" class=""><a href="https://cn.vitejs.dev/">https://cn.vitejs.dev/</a></td></tr></tbody></table><p id="253586d3-d989-4765-abee-6a69f6ca3c12" class="">
+</p><h1 id="cc1373e6-7509-423f-bc07-a1a5fa1e7a0d" class="">Git Lab</h1><h2 id="27a0e251-14ee-41b6-a41d-02763d12104b" class="">指令步驟</h2><ol type="1" id="7dd8259e-59f2-4aa4-8378-a92a6386cbd4" class="numbered-list" start="1"><li>git stash</li></ol><ol type="1" id="18ccc710-583b-4dd9-8769-804088d90d39" class="numbered-list" start="2"><li>git pull origin master</li></ol><ol type="1" id="bd45b87e-1b2b-4a2d-96bd-5416f050e77f" class="numbered-list" start="3"><li>git stash pop</li></ol><ol type="1" id="4f5a2e8e-53ac-42f5-84a8-cd705e16a56f" class="numbered-list" start="4"><li>有衝突比較</li></ol><ol type="1" id="c0bb6b47-fe30-4c4f-b558-d0cf9744d3f7" class="numbered-list" start="5"><li>commit (UI 比較好用)</li></ol><ol type="1" id="33395a00-7610-49d5-bf6f-c88c8d2102b1" class="numbered-list" start="6"><li>git push origin master</li></ol><h2 id="87c81a0f-6d58-4301-870b-0dec9ed1547c" class="">commit title</h2><table id="034c893c-5511-467f-ba03-9bdc38e30f3e" class="simple-table"><tbody><tr id="3192b7a2-2aba-414f-9ad0-0a0bbccbd3a2"><td id="^xAE" class="">title</td><td id="&lt;:Nc" class="">說明</td></tr><tr id="8b6d8192-18d9-465a-932c-d834b4dbfeb1"><td id="^xAE" class="">doc</td><td id="&lt;:Nc" class="">文件更新</td></tr><tr id="ec177a85-8d53-476e-89b3-5240109fb944"><td id="^xAE" class="">feat</td><td id="&lt;:Nc" class="">新增/修改功能</td></tr><tr id="5446594d-e5fe-456e-8e39-b0bd0365a550"><td id="^xAE" class="">fix</td><td id="&lt;:Nc" class="">fix bug</td></tr><tr id="11a28737-af5a-46dd-b0ae-20335d2af4a8"><td id="^xAE" class="">refactor</td><td id="&lt;:Nc" class="">重構</td></tr><tr id="2d94099b-924b-4655-81fe-9e398ddf087c"><td id="^xAE" class="">chore</td><td id="&lt;:Nc" class="">安裝套件</td></tr></tbody></table></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

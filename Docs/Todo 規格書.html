@@ -1,0 +1,760 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Todo 規格書</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="6438e1ce-69b8-4960-b62c-bd0e249f7250" class="page sans"><header><h1 class="page-title">Todo 規格書</h1><p class="page-description"></p></header><div class="page-body"><p id="667876d9-e1a4-40b2-bcd6-d564a10dc06e" class="">
+</p><h2 id="bfda0fae-ee75-478d-b6c0-46b505d900fe" class="">資料庫 Schma</h2><table id="f5cb2fa0-7e30-4426-8d55-6437798b0b31" class="simple-table"><thead class="simple-table-header"><tr id="4ed7ff1d-31a9-43b4-9b9f-90dbe5b3da4e"><th id="FMxh" class="simple-table-header-color simple-table-header">欄位名稱(英文)</th><th id="fs}O" class="simple-table-header-color simple-table-header">欄位名稱(中文)</th><th id="@rsc" class="simple-table-header-color simple-table-header">大小</th><th id="zvQt" class="simple-table-header-color simple-table-header">必填</th><th id="eT\;" class="simple-table-header-color simple-table-header">說明</th><th id="AyQ}" class="simple-table-header-color simple-table-header">列舉</th></tr></thead><tbody><tr id="636e79c6-fb64-4a64-8622-59a4c0342c53"><th id="FMxh" class="simple-table-header-color simple-table-header">TodoId</th><td id="fs}O" class="">PK</td><td id="@rsc" class="">uniqueidentifier</td><td id="zvQt" class="">Y</td><td id="eT\;" class="">自動生成</td><td id="AyQ}" class=""></td></tr><tr id="6c8ccf88-bfeb-4a6e-bf7a-053849dc37c9"><th id="FMxh" class="simple-table-header-color simple-table-header">Name</th><td id="fs}O" class="">姓名</td><td id="@rsc" class="">nvarchar(10)</td><td id="zvQt" class="">Y</td><td id="eT\;" class=""></td><td id="AyQ}" class=""></td></tr><tr id="e76e5a80-e40e-4b31-ac83-7ea87784ef98"><th id="FMxh" class="simple-table-header-color simple-table-header">Title</th><td id="fs}O" class="">標題</td><td id="@rsc" class="">nvarchar(100)</td><td id="zvQt" class="">Y</td><td id="eT\;" class=""></td><td id="AyQ}" class=""></td></tr><tr id="94f574bd-5b4f-497b-8b4d-78eb992813f9"><th id="FMxh" class="simple-table-header-color simple-table-header">TodoContent</th><td id="fs}O" class="">內容</td><td id="@rsc" class="">nvarchar(500)</td><td id="zvQt" class="">Y</td><td id="eT\;" class=""></td><td id="AyQ}" class=""></td></tr><tr id="4724621d-772d-47fd-b035-a76db7f8bba2"><th id="FMxh" class="simple-table-header-color simple-table-header">IsComplete</th><td id="fs}O" class="">是否完成</td><td id="@rsc" class="">varchar(2)</td><td id="zvQt" class="">Y</td><td id="eT\;" class=""></td><td id="AyQ}" class="">Y或N</td></tr><tr id="e9abed32-8251-4997-8eea-8cf04d539e32"><th id="FMxh" class="simple-table-header-color simple-table-header">AddTime</th><td id="fs}O" class="">新增時間</td><td id="@rsc" class="">datetime</td><td id="zvQt" class="">Y</td><td id="eT\;" class=""></td><td id="AyQ}" class=""></td></tr><tr id="a70921fa-0223-4af4-adda-5b24a6bb3369"><th id="FMxh" class="simple-table-header-color simple-table-header">CompleteTime</th><td id="fs}O" class="">完成時間</td><td id="@rsc" class="">datetime</td><td id="zvQt" class="">N</td><td id="eT\;" class="">當 IsComplete = Y 才有值</td><td id="AyQ}" class=""></td></tr></tbody></table><p id="73fea2ae-3cda-4c66-ab9d-7c688bc3b4de" class="">
+</p><h2 id="cb6d23e1-b378-4af2-bf97-74a83b49cd93" class="">取得Todo</h2><table id="6b2aa8e9-14e5-4d49-9c38-826851260a2c" class="simple-table"><tbody><tr id="43d0d6c0-c83d-4567-843d-6eb523ac8e36"><th id="m`T:" class="simple-table-header-color simple-table-header">Url</th><td id="cuFs" class="" style="width:525.9687194824219px"><strong>/api/Todo/Get</strong></td></tr><tr id="c822c1e2-044f-479a-8ce7-7368aa78c2e9"><th id="m`T:" class="simple-table-header-color simple-table-header">HttpStatusCode</th><td id="cuFs" class="" style="width:525.9687194824219px">Get</td></tr></tbody></table><h3 id="1763103a-e7a1-4c40-9c4c-f8f9d47a9a2d" class="">Request</h3><p id="82f0ebb6-78da-4873-9799-a0652d670334" class="">QueryString</p><table id="4a2b24be-8c6f-4b3c-bfda-02573c30fc39" class="simple-table"><thead class="simple-table-header"><tr id="847a8d8d-92f3-4a4a-ab3a-12a5a1c4be25"><th id="OxNO" class="simple-table-header-color simple-table-header" style="width:173.671875px">欄位名稱(英文)</th><th id="@}Sx" class="simple-table-header-color simple-table-header" style="width:168.296875px">欄位名稱(中文)</th><th id=";RaS" class="simple-table-header-color simple-table-header" style="width:99.703125px">型態</th><th id="tJre" class="simple-table-header-color simple-table-header" style="width:386.703125px">列舉</th></tr></thead><tbody><tr id="a20fd62e-af63-420f-bc5b-74d833f5dff7"><th id="OxNO" class="simple-table-header-color simple-table-header" style="width:173.671875px">Name</th><td id="@}Sx" class="" style="width:168.296875px">姓名</td><td id=";RaS" class="" style="width:99.703125px">string</td><td id="tJre" class="" style="width:386.703125px"></td></tr></tbody></table><p id="29c3e799-23f0-43c2-8805-7659efc2e261" class="">
+</p><h3 id="f753631b-a72e-4ff0-abff-c9e3a272fad2" class="">Response</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="986c5120-8871-4618-86da-30cd90e30ee6" class="code"><code class="language-JavaScript">{
+  &quot;returnCode&quot;: 2000,
+  &quot;returnMessage&quot;: &quot;查詢成功&quot;,
+  &quot;returnData&quot;: [
+    {
+      &quot;todoId&quot;: &quot;af18d358-1ed7-43d2-8834-72f9f1348ba9&quot;,
+      &quot;name&quot;: &quot;string&quot;,
+      &quot;title&quot;: &quot;string&quot;,
+      &quot;todoContent&quot;: &quot;string&quot;,
+      &quot;isComplete&quot;: &quot;N&quot;,
+      &quot;addTime&quot;: &quot;2024-03-31T18:03:28.92&quot;,
+      &quot;completeTime&quot;: null
+    },
+    {
+      &quot;todoId&quot;: &quot;b1dd4519-21d4-42fd-9e28-55911f5b1967&quot;,
+      &quot;name&quot;: &quot;string&quot;,
+      &quot;title&quot;: &quot;string&quot;,
+      &quot;todoContent&quot;: &quot;string&quot;,
+      &quot;isComplete&quot;: &quot;N&quot;,
+      &quot;addTime&quot;: &quot;2024-03-31T18:57:34.89&quot;,
+      &quot;completeTime&quot;: null
+    }
+  ]
+}</code></pre><p id="3a74a95c-dc3a-4d9c-b682-af8ad9240a22" class="">
+</p><p id="2166fd67-d942-4a34-8faf-fce94f189f4a" class="">
+</p><h2 id="d554acce-2bee-4eb1-a4c3-bb0abb040478" class="">新增Todo</h2><table id="7468bdc4-bbd6-4384-abf5-a922c6d729ba" class="simple-table"><tbody><tr id="0adf5021-ec1b-48fe-9828-202da16545ea"><th id="m`T:" class="simple-table-header-color simple-table-header">Url</th><td id="cuFs" class="" style="width:525.9687194824219px"><strong>/api/Todo/InsertTodo</strong></td></tr><tr id="b2524832-2aaf-4a3d-9d44-4c55b7e61dc1"><th id="m`T:" class="simple-table-header-color simple-table-header">HttpStatusCode</th><td id="cuFs" class="" style="width:525.9687194824219px">Post</td></tr></tbody></table><h3 id="bf53ccff-f803-438a-ad61-5b93f0b19690" class="">Request</h3><p id="12894d27-b7b3-46ac-88bb-51b7a84434e3" class="">Body</p><table id="7d57f419-a566-4d99-bcbb-1ceaeb451e34" class="simple-table"><thead class="simple-table-header"><tr id="88274848-cb2a-4736-aae3-3fea7e2d2401"><th id="OxNO" class="simple-table-header-color simple-table-header" style="width:173.671875px">欄位名稱(英文)</th><th id="@}Sx" class="simple-table-header-color simple-table-header" style="width:168.296875px">欄位名稱(中文)</th><th id=";RaS" class="simple-table-header-color simple-table-header" style="width:99.703125px">型態</th><th id="tJre" class="simple-table-header-color simple-table-header" style="width:386.703125px">列舉</th><th id="[Rdw" class="simple-table-header-color simple-table-header">驗證</th></tr></thead><tbody><tr id="7caf59a0-a2de-4f29-b568-50feac378c72"><th id="OxNO" class="simple-table-header-color simple-table-header" style="width:173.671875px">Name</th><td id="@}Sx" class="" style="width:168.296875px">姓名</td><td id=";RaS" class="" style="width:99.703125px">string</td><td id="tJre" class="" style="width:386.703125px"></td><td id="[Rdw" class="">必輸</td></tr><tr id="a8cb4cb8-3386-43ce-8baf-216ac0248008"><th id="OxNO" class="simple-table-header-color simple-table-header" style="width:173.671875px">Title</th><td id="@}Sx" class="" style="width:168.296875px">標題</td><td id=";RaS" class="" style="width:99.703125px">string</td><td id="tJre" class="" style="width:386.703125px"></td><td id="[Rdw" class="">必輸</td></tr><tr id="25dda608-fd92-462e-a945-c0e9c32e725a"><th id="OxNO" class="simple-table-header-color simple-table-header" style="width:173.671875px">TodoContent</th><td id="@}Sx" class="" style="width:168.296875px">內容</td><td id=";RaS" class="" style="width:99.703125px">string</td><td id="tJre" class="" style="width:386.703125px"></td><td id="[Rdw" class="">必輸</td></tr></tbody></table><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="03e76fd1-586d-4995-ac26-0df0bb5dad8b" class="code"><code class="language-JavaScript">{
+  &quot;name&quot;: &quot;測試員&quot;,
+  &quot;title&quot;: &quot;吃飯&quot;,
+  &quot;todoContent&quot;: &quot;睡覺打咚咚&quot;
+}</code></pre><p id="6b564195-4fd5-47b4-85a3-62ed1ca8dde1" class="">
+</p><h3 id="470d6479-4faf-4cf6-a226-1820e738a473" class="">Service</h3><ol type="1" id="8ea34661-8875-4293-8b55-1edf93fb5e23" class="numbered-list" start="1"><li>AddTime 請預設現在時間</li></ol><p id="1ae3c552-a4f6-4c10-9ae7-5789087c5ba1" class="">
+</p><h3 id="8b941d24-bf71-446b-a2e2-2b092210ba82" class="">Response</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="9dbfb851-7116-4875-a59d-e6352308ba84" class="code"><code class="language-JavaScript">{
+  &quot;returnCode&quot;: 2000,
+  &quot;returnMessage&quot;: &quot;新增成功&quot;,
+  &quot;returnData&quot;: null
+}</code></pre><p id="880ffa53-6192-427b-932a-e687081f083d" class="">
+</p><p id="faa19236-55fe-4c62-90d9-8f5825b67617" class="">
+</p><h2 id="fca23b05-ae78-4838-b9d0-63f9218311ab" class=""> 修改 Todo 是否完成</h2><table id="35e3560c-2954-4d30-9736-ab5b5f9833fb" class="simple-table"><tbody><tr id="582a803d-94d3-4a2c-bf98-0825f7d97d1b"><th id="m`T:" class="simple-table-header-color simple-table-header">Url</th><td id="cuFs" class="" style="width:525.9687194824219px"><strong>/api/Todo/UpdateTodoStatus</strong></td></tr><tr id="4c88cd7f-d982-4049-a6a8-d6515096e49a"><th id="m`T:" class="simple-table-header-color simple-table-header">HttpStatusCode</th><td id="cuFs" class="" style="width:525.9687194824219px">Put</td></tr></tbody></table><h3 id="d3958eea-60aa-4869-aae1-c5f971b0d6ca" class="">Request</h3><p id="fac0a7b5-0058-4c46-b2c6-938f38acac84" class="">Body</p><table id="cbad749b-370b-4bf1-b271-0fded07f5370" class="simple-table"><thead class="simple-table-header"><tr id="90fd7c35-a17f-4500-b9a2-e4d01d06faf8"><th id="OxNO" class="simple-table-header-color simple-table-header" style="width:173.671875px">欄位名稱(英文)</th><th id="@}Sx" class="simple-table-header-color simple-table-header" style="width:168.296875px">欄位名稱(中文)</th><th id=";RaS" class="simple-table-header-color simple-table-header" style="width:99.703125px">型態</th><th id="tJre" class="simple-table-header-color simple-table-header" style="width:386.703125px">列舉</th><th id="[Rdw" class="simple-table-header-color simple-table-header">驗證</th></tr></thead><tbody><tr id="8fa4548c-ac8a-4dda-8db2-01065936c106"><th id="OxNO" class="simple-table-header-color simple-table-header" style="width:173.671875px">TodoId</th><td id="@}Sx" class="" style="width:168.296875px">PK</td><td id=";RaS" class="" style="width:99.703125px">guid</td><td id="tJre" class="" style="width:386.703125px">f79418cb-bb8e-4425-8028-383949303834</td><td id="[Rdw" class="">必輸</td></tr><tr id="deb036c0-ea76-4590-aae7-c12cf11e86df"><th id="OxNO" class="simple-table-header-color simple-table-header" style="width:173.671875px">IsComplete</th><td id="@}Sx" class="" style="width:168.296875px">是否完成</td><td id=";RaS" class="" style="width:99.703125px">string</td><td id="tJre" class="" style="width:386.703125px"></td><td id="[Rdw" class="">必輸 , 只能Y與N</td></tr></tbody></table><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="bafbfe6f-0093-44d1-95c8-5a473831ee2f" class="code"><code class="language-JavaScript">{
+  &quot;todoId&quot;: &quot;f79418cb-bb8e-4425-8028-383949303834&quot;,
+  &quot;isComplete&quot;: &quot;Y&quot;
+}</code></pre><p id="607cd400-0297-42ed-af58-a86bb98b872f" class="">
+</p><h3 id="d3f22972-3b15-4c0a-b026-37b7e8b97852" class="">Service</h3><ol type="1" id="2d045e8f-dd2a-4cb6-a6f8-49bf93736ce1" class="numbered-list" start="1"><li>是否有此筆資料 ⇒ ReturnCode 4001</li></ol><ol type="1" id="1473f964-480d-417a-a328-52003f3296fa" class="numbered-list" start="2"><li>當TodoStatus = Y，請將CompleteTime 預設為現在時間</li></ol><ol type="1" id="7d155e97-545f-4702-9369-2259a429536d" class="numbered-list" start="3"><li>當TodoStatus = N，請將CompleteTime 預設為null</li></ol><p id="621dbd0b-63da-48f2-bbcb-a53fad601846" class="">
+</p><h3 id="17f30f79-63b1-42dc-a9b8-4f7d1732f65b" class="">Response</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="b67b05f5-11da-4b1d-9266-a51b0f31669d" class="code"><code class="language-JavaScript">{
+  &quot;returnCode&quot;: 2000,
+  &quot;returnMessage&quot;: &quot;修改成功&quot;,
+  &quot;returnData&quot;: null
+}</code></pre><p id="41fab454-114a-4d6f-ac61-23592405f857" class="">
+</p><h2 id="84765f0b-6a07-4b51-bb82-3ed5e9b08fb8" class=""> 單筆刪除 Todo </h2><table id="23aa55e6-7cf2-4f30-9733-af3f213b4377" class="simple-table"><tbody><tr id="152e1dd0-8284-41a2-a9f8-3d2d4b58200b"><th id="m`T:" class="simple-table-header-color simple-table-header">Url</th><td id="cuFs" class="" style="width:525.9687194824219px"><strong>/api/Todo/Delete/{TodoId}</strong></td></tr><tr id="b31bea4e-5579-412e-ad0d-b3cff379024c"><th id="m`T:" class="simple-table-header-color simple-table-header">HttpStatusCode</th><td id="cuFs" class="" style="width:525.9687194824219px">Delete</td></tr></tbody></table><h3 id="c9c58e4e-23eb-49e7-b3dd-1f20829d79dc" class="">Request</h3><p id="8a934eec-a4b0-4ba1-b047-0f7cc8b0c7c3" class="">Route</p><table id="f1cc5ba0-e4a5-464c-9115-e9050095d816" class="simple-table"><thead class="simple-table-header"><tr id="e1bc8009-f302-4e03-b427-7ab5ef6b7ad7"><th id="OxNO" class="simple-table-header-color simple-table-header" style="width:173.671875px">欄位名稱(英文)</th><th id="@}Sx" class="simple-table-header-color simple-table-header" style="width:168.296875px">欄位名稱(中文)</th><th id=";RaS" class="simple-table-header-color simple-table-header" style="width:99.703125px">型態</th><th id="tJre" class="simple-table-header-color simple-table-header" style="width:386.703125px">列舉</th><th id="[Rdw" class="simple-table-header-color simple-table-header">驗證</th></tr></thead><tbody><tr id="8660b06e-0661-43cf-a37d-2e29f1dccab9"><th id="OxNO" class="simple-table-header-color simple-table-header" style="width:173.671875px">TodoId</th><td id="@}Sx" class="" style="width:168.296875px">PK</td><td id=";RaS" class="" style="width:99.703125px">guid</td><td id="tJre" class="" style="width:386.703125px">f79418cb-bb8e-4425-8028-383949303834</td><td id="[Rdw" class="">必輸</td></tr></tbody></table><h3 id="e2e0b1e0-e625-4797-9216-5e224e2d680d" class="">Service</h3><ol type="1" id="3f71cfb5-e3d1-4574-82d1-d21e20b81d91" class="numbered-list" start="1"><li>是否有此筆資料 ⇒ ReturnCode 4001</li></ol><p id="a0109639-bfef-4894-bcbb-33c9b1f1f04f" class="">
+</p><h3 id="15ad363b-ac8b-488a-adc8-3b321993e775" class="">Response</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="ac42f443-c8ca-4192-9a1e-e91b4e1d5aaf" class="code"><code class="language-JavaScript">{
+  &quot;returnCode&quot;: 2000,
+  &quot;returnMessage&quot;: &quot;刪除成功&quot;,
+  &quot;returnData&quot;: null
+}</code></pre><p id="fc475bde-25fe-4992-81d2-40276795bb23" class="">
+</p><p id="17459041-3154-488c-ad2f-719c5220be6b" class="">
+</p><h2 id="86a7d97c-85f3-493e-a679-5a82c8e4e4b2" class=""> 單筆修改 Todo 內容 </h2><table id="91b46340-6f6e-4779-b9ce-178dee8de1b1" class="simple-table"><tbody><tr id="2eba5e77-c31b-4790-ac72-1f245567bf68"><th id="m`T:" class="simple-table-header-color simple-table-header">Url</th><td id="cuFs" class="" style="width:525.9687194824219px"><strong>/api/Todo/UpdateTodoContent</strong></td></tr><tr id="57c7aeb8-c072-4bda-b307-12e98e1602f1"><th id="m`T:" class="simple-table-header-color simple-table-header">HttpStatusCode</th><td id="cuFs" class="" style="width:525.9687194824219px">Put</td></tr></tbody></table><h3 id="bf1de89e-e61a-48d4-b571-02d54b1f5fbd" class="">Request</h3><p id="ae7b3a7c-4b18-4387-b36c-97e028cfcae9" class="">Route</p><table id="04114d29-7632-4b30-aaaf-03848bf2c0ef" class="simple-table"><thead class="simple-table-header"><tr id="98578a30-d0c6-4c53-8813-c2457f615b2b"><th id="OxNO" class="simple-table-header-color simple-table-header" style="width:173.671875px">欄位名稱(英文)</th><th id="@}Sx" class="simple-table-header-color simple-table-header" style="width:168.296875px">欄位名稱(中文)</th><th id=";RaS" class="simple-table-header-color simple-table-header" style="width:99.703125px">型態</th><th id="tJre" class="simple-table-header-color simple-table-header" style="width:386.703125px">列舉</th><th id="[Rdw" class="simple-table-header-color simple-table-header">驗證</th></tr></thead><tbody><tr id="7a098a18-f6f9-4853-89ec-fb4567c7bd40"><th id="OxNO" class="simple-table-header-color simple-table-header" style="width:173.671875px">TodoId</th><td id="@}Sx" class="" style="width:168.296875px">PK</td><td id=";RaS" class="" style="width:99.703125px">guid</td><td id="tJre" class="" style="width:386.703125px">f79418cb-bb8e-4425-8028-383949303834</td><td id="[Rdw" class="">必輸</td></tr><tr id="23a7747e-9052-463c-a31f-219b628b6372"><th id="OxNO" class="simple-table-header-color simple-table-header" style="width:173.671875px">Name</th><td id="@}Sx" class="" style="width:168.296875px">姓名</td><td id=";RaS" class="" style="width:99.703125px">string</td><td id="tJre" class="" style="width:386.703125px"></td><td id="[Rdw" class="">必輸</td></tr><tr id="37f213fa-3a99-4c21-89eb-b45972abc78d"><th id="OxNO" class="simple-table-header-color simple-table-header" style="width:173.671875px">Title</th><td id="@}Sx" class="" style="width:168.296875px">標題</td><td id=";RaS" class="" style="width:99.703125px">string</td><td id="tJre" class="" style="width:386.703125px"></td><td id="[Rdw" class="">必輸</td></tr><tr id="eea2f436-f076-485e-8743-caacca0d7fb2"><th id="OxNO" class="simple-table-header-color simple-table-header" style="width:173.671875px">TodoContent</th><td id="@}Sx" class="" style="width:168.296875px">內容</td><td id=";RaS" class="" style="width:99.703125px">string</td><td id="tJre" class="" style="width:386.703125px"></td><td id="[Rdw" class="">必輸</td></tr></tbody></table><h3 id="d9b9c061-bbab-409b-86cd-615ac59a4737" class="">Service</h3><ol type="1" id="6ddfbc41-a16f-4e95-960d-42b0a113a6c8" class="numbered-list" start="1"><li>是否有此筆資料 ⇒ ReturnCode 4001</li></ol><p id="2c19c8e2-9e30-4309-a517-f25de320d2cb" class="">
+</p><h3 id="3d6cfdf1-a6e5-4146-a3ce-256be504e060" class="">Response</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="653a9c05-b0a2-42e5-8e74-98bdfd3f353c" class="code"><code class="language-JavaScript">{
+  &quot;returnCode&quot;: 2000,
+  &quot;returnMessage&quot;: &quot;修改成功&quot;,
+  &quot;returnData&quot;: null
+}</code></pre><p id="0d0ae81f-3588-4dc9-9b84-7807752a8815" class="">
+</p><p id="ee6a1c67-a58c-4c5c-a9a6-bc27542cebea" class="">
+</p><h2 id="a0b78bf0-d315-43b4-a8b0-b4862f4fd0c7" class="">狀態碼</h2><h3 id="09f22327-dc51-423c-b9cf-5aca35d294d1" class="">ReturnCode 內部自訂義</h3><table id="f9fcf7f1-88ee-4775-b5be-029e9021e6e6" class="simple-table"><tbody><tr id="a3762966-9902-4737-b5e7-6bb3f19082a2"><td id="vDMn" class=""></td><td id="Jw\x" class="">代碼</td></tr><tr id="b9555d70-4213-49c7-a992-b79dd1c03b25"><td id="vDMn" class="">Success</td><td id="Jw\x" class="">2000</td></tr><tr id="80824b6e-fa98-4ca1-aaaa-d967b28940f4"><td id="vDMn" class="">VaildDataError </td><td id="Jw\x" class="">4000</td></tr><tr id="22ac85a0-7d79-421e-8e6e-d8f1abd9be1e"><td id="vDMn" class="">QueryNotFound</td><td id="Jw\x" class="">4001</td></tr><tr id="fa841ec6-bca9-45d6-a46d-816f41d635ff"><td id="vDMn" class="">UnAuth</td><td id="Jw\x" class="">4002</td></tr><tr id="b6532918-1b75-4ae1-b046-348b53d33614"><td id="vDMn" class="">ServerError</td><td id="Jw\x" class="">5000</td></tr><tr id="5a2da5d4-80ef-4601-bd03-d8bf238bea2b"><td id="vDMn" class="">DBCommandFail</td><td id="Jw\x" class="">5001</td></tr></tbody></table><p id="ceb46f2c-961b-45e8-81a6-77ae48884950" class="">
+</p><h3 id="944176bb-49d1-4af9-9b99-041666d23005" class="">HttpStatusCode</h3><table id="dacc2afe-a008-4e6f-bef8-1bc795d0e9c8" class="simple-table"><tbody><tr id="4e7ddd1b-5e97-4d54-a1c0-c445117855b0"><td id="vDMn" class="">代碼</td><td id="Jw\x" class="">說明</td></tr><tr id="4e681272-ee68-4ed5-bd6d-117ac8e4c61c"><td id="vDMn" class="">200</td><td id="Jw\x" class="">成功</td></tr><tr id="fc033d95-44d9-42fa-8354-a2b1117a4700"><td id="vDMn" class="">400</td><td id="Jw\x" class="">驗證格式未過</td></tr><tr id="6fc7228f-6d18-45d8-804c-392e5414778b"><td id="vDMn" class="">500</td><td id="Jw\x" class="">程式意外錯誤</td></tr></tbody></table><p id="7cb9b537-47ab-457a-8156-24b0ee512921" class="">400 Response</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="0cf559c3-a06d-4f96-8885-eb88ab0e9c29" class="code"><code class="language-JavaScript">{
+  &quot;errors&quot;: {
+    &quot;Title&quot;: [
+      &quot;標題 為必填&quot;
+    ]
+  },
+  &quot;type&quot;: &quot;https://tools.ietf.org/html/rfc9110#section-15.5.1&quot;,
+  &quot;title&quot;: &quot;One or more validation errors occurred.&quot;,
+  &quot;status&quot;: 400,
+  &quot;traceId&quot;: &quot;00-fbf7469df9bb6fb44d5e2703ccdc7700-b524dd044f72b674-00&quot;
+}</code></pre><p id="1d61bb37-24e7-434f-be3a-97c5630c4ea6" class="">
+</p><p id="c8719613-1bfb-46fb-84a2-ffe808d46542" class="">500 Response</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="b7d89d72-32b6-4a36-ab4d-52090e88709b" class="code"><code class="language-JavaScript">{
+  &quot;type&quot;: &quot;NotImplementedException&quot;,
+  &quot;title&quot;: &quot;An error occured: The method or operation is not implemented.&quot;,
+  &quot;status&quot;: 500,
+  &quot;detail&quot;: &quot;System.NotImplementedException: The method or operation is not implemented.\r\n   at Todo.API.Controllers.TodoController.Get(QueryTodoRequest request) in D:\\Todo\\TodoAPI\\Controllers\\TodoController.cs:line 27\r\n   at lambda_method397(Closure, Object)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.&lt;InvokeActionMethodAsync&gt;g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.&lt;InvokeNextActionFilterAsync&gt;g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State&amp; next, Scope&amp; scope, Object&amp; state, Boolean&amp; isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.&lt;InvokeFilterPipelineAsync&gt;g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.&lt;InvokeAsync&gt;g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.&lt;InvokeAsync&gt;g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\r\n   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)\r\n   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)\r\n   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.&lt;Invoke&gt;g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)&quot;,
+  &quot;instance&quot;: &quot;GET /api/Todo/Get&quot;,
+  &quot;traceId&quot;: &quot;00-7ba0178a92f38d649fc94796e464aaa7-aebc2f6eb50d4f28-00&quot;
+}</code></pre></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
