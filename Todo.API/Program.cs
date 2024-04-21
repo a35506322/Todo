@@ -7,7 +7,14 @@ SerilLogHelper.ConfigureSerilLogger(config);
 try
 {
     // Add services to the container.
-    builder.Services.AddControllers().AddNewtonsoftJson();
+    builder.Services.AddControllers()
+        .ConfigureApiBehaviorOptions(options =>
+        {
+            // Customize the response when the model state is invalid.
+            options.InvalidModelStateResponseFactory = context => BadRequestExceptionHandler.TryHandler(context);
+        })
+        // Add support for Newtonsoft JSON as the JSON serializer.
+        .AddNewtonsoftJson();
 
     // Serillog 
     builder.Services.AddSerilog();
@@ -79,4 +86,3 @@ finally
 {
     Log.CloseAndFlush();
 }
-

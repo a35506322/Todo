@@ -29,7 +29,7 @@ public class ResponseExtension
     public static class Exception
     {
         public static ResultResponse UnexpectedException(object problemDetails) => new ResultResponse(ReturnCode: Enum.ReturnCodeEnum.Unexpected, ReturnMessage: "意外狀況", ReturnData: problemDetails);
-        public static ResultResponse BadRequest(ProblemDetails problemDetails) => new ResultResponse(ReturnCode: Enum.ReturnCodeEnum.VaildDataError, ReturnData: problemDetails);
+        public static ResultResponse BadRequest(object problemDetails) => new ResultResponse(ReturnCode: Enum.ReturnCodeEnum.BadRequest, ReturnMessage: "伺服器驗證錯誤", ReturnData: problemDetails);
 
     }
 }

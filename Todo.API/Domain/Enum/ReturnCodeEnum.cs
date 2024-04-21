@@ -8,5 +8,6 @@ public enum ReturnCodeEnum
     UnAuth = 4002,
     ServerError = 5000,
     DBCommandFail = 5001,
-    Unexpected = 9000
+    Unexpected = 9000,
+    BadRequest = 9001
 }

@@ -41,3 +41,7 @@ global using Todo.API.Domain.Enum;
 global using Todo.API.Domain.SwaggerExample.Common;
 global using Todo.API.Infrastructures.NSwag;
 global using Todo.API.Infrastructures.Cors;
+global using Microsoft.AspNetCore.Mvc.ModelBinding;
+global using System.Globalization;
+global using System.Text.RegularExpressions;
+global using Todo.API.Common.Extensions;
