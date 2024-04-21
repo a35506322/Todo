@@ -5,6 +5,7 @@ namespace Todo.API.Controllers;
 [Route("/api/[controller]/[action]")]
 [ApiController]
 [AllowAnonymous]
+[ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ResultResponse))]
 public class SigninController : ControllerBase
 {
     private readonly JWTHelper _jWTHelper;
@@ -26,6 +27,9 @@ public class SigninController : ControllerBase
         typeof(LoginVerificationErrorResponseExample),
         ExampleType = ExampleType.Response,
         ResponseStatusCode = StatusCodes.Status200OK)]
+    [EndpointSpecificExample(typeof(UnexpectedExceptionExample),
+        ExampleType = ExampleType.Response,
+        ResponseStatusCode = StatusCodes.Status500InternalServerError)]
 
     public async Task<IResult> SignIn([FromBody] PostSignInRequest request)
     {

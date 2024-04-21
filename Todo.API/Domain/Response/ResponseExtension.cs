@@ -28,7 +28,7 @@ public class ResponseExtension
 
     public static class Exception
     {
-        public static ResultResponse GlobalException(ProblemDetails problemDetails) => new ResultResponse(ReturnCode: Enum.ReturnCodeEnum.ServerError, ReturnData: problemDetails);
+        public static ResultResponse UnexpectedException(object problemDetails) => new ResultResponse(ReturnCode: Enum.ReturnCodeEnum.Unexpected, ReturnMessage: "意外狀況", ReturnData: problemDetails);
         public static ResultResponse BadRequest(ProblemDetails problemDetails) => new ResultResponse(ReturnCode: Enum.ReturnCodeEnum.VaildDataError, ReturnData: problemDetails);
 
     }

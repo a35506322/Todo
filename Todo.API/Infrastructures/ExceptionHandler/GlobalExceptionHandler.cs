@@ -33,8 +33,9 @@ public class GlobalExceptionHandler : IExceptionHandler
 
         httpContext.Response.StatusCode = problemDetails.Status.Value;
 
+
         await httpContext.Response
-            .WriteAsJsonAsync(problemDetails, cancellationToken);
+            .WriteAsJsonAsync(ResponseExtension.Exception.UnexpectedException(problemDetails), cancellationToken);
 
         return true;
     }
