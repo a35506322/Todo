@@ -111,7 +111,6 @@ const onSubmit = async () => {
     }
   } catch (error) {
     console.error('onSubmit', error);
-    alert('意外狀況');
   }
 };
 
@@ -140,7 +139,6 @@ onMounted(async () => {
                   name="name"
                   id="name"
                   class="input-success"
-                  required
                   v-model="request.name"
                 />
               </div>
@@ -153,7 +151,6 @@ onMounted(async () => {
                   name="title"
                   id="title"
                   class="input-success"
-                  required
                   v-model="request.title"
                 />
               </div>
@@ -166,7 +163,6 @@ onMounted(async () => {
                   name="todo-content"
                   rows="3"
                   class="textarea-success"
-                  required
                   v-model="request.todoContent"
                 ></textarea>
               </div>

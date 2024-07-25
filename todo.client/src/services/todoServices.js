@@ -1,4 +1,4 @@
-import { todoInstance } from '../utils/todoInstance.js';
+import todoInstance from '../utils/todoInstance.js';
 
 export const todoService = {
   getTodo: (quertString = '') => todoInstance.get(`/api/todo/get?${quertString}`),

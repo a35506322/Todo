@@ -13,7 +13,8 @@ export default defineConfig(({ command, mode }) => {
   if (vite_env === 'development') {
     proxy = {
       '/todo_baseUrl': {
-        target: 'https://localhost:7081',
+        //target: 'https://localhost:7081',
+        target: 'https://61.63.82.181/todo',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/todo_baseUrl/, ''),
         secure: false
